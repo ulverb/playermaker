@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -20,7 +19,7 @@ public class PlayerManagementService implements IPlayerManagementService{
                 .filter(v -> !v.isBlank())
                 .collect(Collectors.groupingBy(v -> v, Collectors.counting()))
                 .entrySet().stream()
-                .sorted((first, second) -> Long.compare(second.getValue(), first.getValue()))
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .map(v -> v.getKey()).limit(numPlayers).collect(Collectors.toList());
     }
 }
